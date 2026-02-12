@@ -243,9 +243,8 @@ body{
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--line);
-  color: #ffffff;   /* EKLE */
+  color: #ffffff;
 }
-
 
 .lightbox__meta{
   padding: 16px;
@@ -257,11 +256,11 @@ body{
 .lightbox__title{
   font-weight: 800;
   font-size: 16px;
+  color: #ffffff;     /* bunu da açıkça yaz */
 }
 
 .lightbox__price{
   font-weight: 900;
   font-size: 16px;
-  color: #f5c46b;   /* EKLE */
+  color: #f5c46b;
 }
-
