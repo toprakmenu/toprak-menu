@@ -172,7 +172,7 @@ body{
 
 /* Scroll ile küçülen header */
 .topbar{
-  transition: padding 220ms ease, background 220ms ease, border-color 220ms ease;
+  transition: padding 220ms ease, background 220ms ease;
 }
 
 .topbar .brand__title{
