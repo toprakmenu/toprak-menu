@@ -125,10 +125,15 @@ body{
 .hero{
   position: relative;
   height: 320px;
-background: url("images/header.jpg") center/cover no-repeat;
+  min-height: 200px;
+  background-image: url("images/header.jpg") !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
   display: flex;
   align-items: flex-end;
   padding: 24px;
+  z-index: 0;
 }
 
 
