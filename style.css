@@ -169,3 +169,34 @@ body{
   color:#eaeaea;
 }
 
+
+/* Scroll ile küçülen header */
+.topbar{
+  transition: padding 220ms ease, background 220ms ease, border-color 220ms ease;
+}
+
+.topbar .brand__title{
+  transition: font-size 220ms ease;
+}
+
+.topbar .brand__sub{
+  transition: opacity 220ms ease, height 220ms ease, margin 220ms ease;
+}
+
+/* Küçük mod */
+.topbar.is-compact{
+  padding: 10px 14px 8px;
+  background: rgba(11,11,12,.96);
+}
+
+.topbar.is-compact .brand__title{
+  font-size: 16px;
+}
+
+.topbar.is-compact .brand__sub{
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
