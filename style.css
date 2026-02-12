@@ -124,30 +124,48 @@ body{
 
 .hero{
   position: relative;
-  height: 240px;
+  height: 320px;
   background: url("images/header.jpg") center/cover no-repeat;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  padding: 24px;
 }
 
-.hero__overlay{
-  text-align: center;
-  background: rgba(0,0,0,0.45);
-  padding: 20px 30px;
-  border-radius: 16px;
-  backdrop-filter: blur(4px);
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.2));
+}
+
+.hero__content{
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.hero__badge{
+  display:inline-block;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  padding:6px 12px;
+  border-radius: 999px;
+  font-size:12px;
+  margin-bottom:12px;
+  color:#fff;
+  letter-spacing:.5px;
 }
 
 .hero h1{
   margin:0;
-  font-size: 26px;
-  font-weight: 800;
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:.5px;
 }
 
 .hero p{
   margin-top:6px;
-  font-size:14px;
+  font-size:15px;
   color:#eaeaea;
 }
 
