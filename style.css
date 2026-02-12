@@ -243,7 +243,6 @@ body{
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--line);
-  color: #ffffff;
 }
 
 .lightbox__meta{
@@ -251,16 +250,18 @@ body{
   display:flex;
   justify-content: space-between;
   align-items:center;
+  background: #111114;               /* garanti */
+  color: #ffffff !important;         /* garanti */
 }
 
 .lightbox__title{
   font-weight: 800;
   font-size: 16px;
-  color: #ffffff;     /* bunu da açıkça yaz */
+  color: #ffffff !important;         /* garanti */
 }
 
 .lightbox__price{
   font-weight: 900;
   font-size: 16px;
-  color: #f5c46b;
+  color: #f5c46b !important;         /* garanti */
 }
