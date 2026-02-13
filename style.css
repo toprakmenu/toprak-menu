@@ -380,3 +380,22 @@ body{
     transform: none !important;
   }
 }
+
+
+.hero h1{
+  color: #ffffff;
+}
+
+.hero p{
+  color: #ffffff;
+}
+
+
+/* POPUP YAZI DÜZELTME */
+.lightbox__title{
+  color:#2b2b2b;
+}
+
+.lightbox__meta{
+  color:#2b2b2b;
+}
