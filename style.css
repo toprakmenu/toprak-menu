@@ -350,3 +350,61 @@ body{
     transform: none !important;
   }
 }
+
+
+
+
+/* =========================
+   LIGHT THEME OVERRIDE (en alta)
+   ========================= */
+:root{
+  --bg:#f3f4f6;
+  --card:#ffffff;
+  --text:#111827;
+  --muted:#6b7280;
+  --line:#e5e7eb;
+  --gold:#c58b1e;
+}
+
+/* genel zemin */
+body{
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* hero altındaki üst bar */
+.topbar{
+  background: rgba(243,244,246,.92) !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+.topbar.is-compact{
+  background: rgba(243,244,246,.96) !important;
+}
+.brand__title{ color: var(--text) !important; }
+.brand__sub{ color: var(--muted) !important; }
+
+/* kategori pill butonlar */
+.tabs a{
+  background: #ffffff !important;
+  border: 1px solid var(--line) !important;
+  color: var(--text) !important;
+}
+
+/* section yazıları */
+.section h2{ color: var(--text) !important; }
+
+/* kartlar */
+.item{
+  background: var(--card) !important;
+  border: 1px solid var(--line) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05) !important;
+}
+.item__desc{ color: var(--muted) !important; }
+.item__img{ border-color: var(--line) !important; }
+.item__price{ color: var(--text) !important; }
+
+/* footer */
+.footer{
+  border-top: 1px solid var(--line) !important;
+  color: var(--muted) !important;
+}
