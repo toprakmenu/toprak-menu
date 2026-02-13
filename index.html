@@ -466,19 +466,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === dlg) closeLightbox();
   });
 
-  // Ürün görsellerine tıklama
-  document.addEventListener('click', (e) => {
-    const img = e.target.closest('img.item__img');
-    if (!img) return;
+// ✅ Mobil dahil: ürün kartına tıklayınca aç
+document.addEventListener('click', (e) => {
+  const item = e.target.closest('a.item');
+  if (!item) return;
 
-    e.preventDefault();
+  e.preventDefault();
 
-    const item = img.closest('.item');
-    const title = item?.querySelector('.item__name')?.textContent || '';
-    const price = item?.querySelector('.item__price')?.textContent || '';
+  const img = item.querySelector('img.item__img');
+  if (!img) return;
 
-    openLightbox(img.src, img.alt, title, price);
-  });
+  const title = item.querySelector('.item__name')?.textContent || '';
+  const price = item.querySelector('.item__price')?.textContent || '';
+
+  openLightbox(img.src, img.alt, title, price);
+}, { passive: false });
+
 });
 </script>
 
