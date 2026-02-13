@@ -5,39 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Toprak Bakery House • Menü</title>
 
-  <!-- ✅ TÜM CSS ARTIK BURADAN GELİYOR -->
-  <link rel="stylesheet" href="style.css">
-
+  <!-- CSS TEK KAYNAK -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<section class="hero">
-  <div class="hero__overlay"></div>
-  <div class="hero__content">
-    <div class="hero__badge">Since 2026 • İzmit</div>
-    <h1>Toprak Bakery House</h1>
-    <p>Artisan Sourdough • Specialty Coffee</p>
-  </div>
-</section>
+  <section class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <div class="hero__badge">Since 2026 • İzmit</div>
+      <h1>Toprak Bakery House</h1>
+      <p>Artisan Sourdough • Specialty Coffee</p>
+    </div>
+  </section>
 
-<header class="topbar">
-  <div class="brand">
-    <div class="brand__title">Toprak Bakery House</div>
-    <div class="brand__sub">QR Menü • Servis: 15–20 dk • F.D.T: 19.01.2026</div>
-  </div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand__title">Toprak Bakery House</div>
+      <div class="brand__sub">QR Menü • Servis: 15–20 dk • F.D.T: 19.01.2026</div>
+    </div>
 
-  <nav class="tabs">
-    <a href="#kahvalti">Kahvaltı</a>
-    <a href="#tartine">Tartine</a>
-    <a href="#sandvic">Sandviç</a>
-    <a href="#firin">Fırın</a>
-    <a href="#tatlilar">Tatlılar</a>
-    <a href="#icecek">İçecek</a>
-  </nav>
-</header>
+    <nav class="tabs">
+      <a href="#kahvalti">Kahvaltı</a>
+      <a href="#tartine">Tartine</a>
+      <a href="#sandvic">Sandviç</a>
+      <a href="#firin">Fırın</a>
+      <a href="#tatlilar">Tatlılar</a>
+      <a href="#icecek">İçecek</a>
+    </nav>
+  </header>
 
- <main class="wrap">
+  <main class="wrap">
     <section class="section">
       <div style="color: var(--muted); font-size: 12px; line-height: 1.35; margin-bottom: 10px;">
         Tezgah ürünleri gün içerisinde tükenmektedir, lütfen sorunuz. Özel tercih ve alerjinizi sipariş verirken belirtiniz.
@@ -417,76 +416,104 @@
       </a>
     </section>
 
-  <footer class="footer">
-    <div>© Toprak Bakery House</div>
-  </footer>
-</main>
+    <footer class="footer">
+      <div>© Toprak Bakery House</div>
+    </footer>
+  </main>
 
-<!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox" aria-hidden="true">
-  <div class="lightbox__backdrop" data-close="1"></div>
+  <!-- ✅ CUSTOM LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox__backdrop" data-close="1"></div>
 
-  <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Ürün Detayı">
-    <button type="button" class="lightbox__close" aria-label="Kapat">✕</button>
+    <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Ürün Detayı">
+      <button type="button" class="lightbox__close" aria-label="Kapat">✕</button>
 
-    <div class="lightbox__content">
-      <img id="lightboxImg" class="lightbox__img" alt="" />
-      <div class="lightbox__meta">
-        <div id="lightboxTitle" class="lightbox__title"></div>
-        <div id="lightboxPrice" class="lightbox__price"></div>
+      <div class="lightbox__content">
+        <img id="lightboxImg" class="lightbox__img" alt="" />
+        <div class="lightbox__meta">
+          <div id="lightboxTitle" class="lightbox__title"></div>
+          <div id="lightboxPrice" class="lightbox__price"></div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
+  <script>
+    // Topbar compact
+    document.addEventListener('DOMContentLoaded', () => {
+      const topbar = document.querySelector('.topbar');
+      if (!topbar) return;
 
-  const topbar = document.querySelector('.topbar');
+      const onScroll = () => {
+        if (window.scrollY > 40) topbar.classList.add('is-compact');
+        else topbar.classList.remove('is-compact');
+      };
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) topbar.classList.add('is-compact');
-    else topbar.classList.remove('is-compact');
-  }, { passive: true });
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    });
 
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightboxImg');
-  const lbTitle = document.getElementById('lightboxTitle');
-  const lbPrice = document.getElementById('lightboxPrice');
+    // ✅ Custom Lightbox (mobil + PC garanti)
+    document.addEventListener('DOMContentLoaded', () => {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      const lbTitle = document.getElementById('lightboxTitle');
+      const lbPrice = document.getElementById('lightboxPrice');
+      const btnClose = lb?.querySelector('.lightbox__close');
 
-  const open = (src, alt, title, price) => {
-    lbImg.src = src;
-    lbImg.alt = alt || '';
-    lbTitle.textContent = title || '';
-    lbPrice.textContent = price || '';
-    lb.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  };
+      if (!lb || !lbImg || !lbTitle || !lbPrice || !btnClose) return;
 
-  const close = () => {
-    lb.classList.remove('is-open');
-    document.body.style.overflow = '';
-    lbImg.src = '';
-  };
+      const open = (src, alt, title, price) => {
+        lbImg.src = src;
+        lbImg.alt = alt || 'Ürün fotoğrafı';
+        lbTitle.textContent = title || '';
+        lbPrice.textContent = price || '';
 
-  document.addEventListener('click', (e) => {
-    const item = e.target.closest('a.item');
-    if (!item) return;
+        lb.classList.add('is-open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
 
-    e.preventDefault();
+      const close = () => {
+        lb.classList.remove('is-open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      };
 
-    const img = item.querySelector('img.item__img');
-    const title = item.querySelector('.item__name')?.textContent || '';
-    const price = item.querySelector('.item__price')?.textContent || '';
+      // Kartın tamamına tıklayınca aç (mobil dahil)
+      document.addEventListener('click', (e) => {
+        const item = e.target.closest('a.item');
+        if (!item) return;
 
-    open(img.src, img.alt, title, price);
-  });
+        e.preventDefault();
 
-  lb.querySelector('.lightbox__close').onclick = close;
-  lb.onclick = e => { if(e.target.dataset.close) close(); }
+        const img = item.querySelector('img.item__img');
+        if (!img) return;
 
-});
-</script>
+        const title = item.querySelector('.item__name')?.textContent || '';
+        const price = item.querySelector('.item__price')?.textContent || '';
+        open(img.src, img.alt, title, price);
+      }, { passive: false });
+
+      // X ile kapat
+      btnClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        close();
+      });
+
+      // Backdrop'a tıkla kapat
+      lb.addEventListener('click', (e) => {
+        const shouldClose = e.target?.dataset?.close === "1";
+        if (shouldClose) close();
+      });
+
+      // ESC ile kapat
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
+      });
+    });
+  </script>
 
 </body>
 </html>
