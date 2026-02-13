@@ -839,6 +839,15 @@
         if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
       });
     });
+    document.addEventListener("click", function(){
+  const lb = document.getElementById("lightbox");
+  if(!lb) return;
+
+  setTimeout(function(){
+    lb.classList.toggle("is-open", lb.getAttribute("aria-hidden") === "false");
+  }, 10);
+});
+
   </script>
 
 </body>
