@@ -439,8 +439,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('lightboxTitle').textContent = title || '';
   document.getElementById('lightboxPrice').textContent = price || '';
 
-  if (typeof dlg.showModal === 'function') dlg.showModal();
-  else dlg.setAttribute('open', '');
+if (typeof dlg.showModal === 'function') {
+  dlg.showModal();
+} else {
+  dlg.setAttribute('open', '');
+  void dlg.offsetWidth;
 }
 
 
