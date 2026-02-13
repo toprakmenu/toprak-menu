@@ -11,7 +11,7 @@
 
 <body>
 
-  <section class="hero">
+<section class="hero" id="hero">
     <div class="hero__overlay"></div>
     <div class="hero__content">
       <div class="hero__badge">Since 2026 • İzmit</div>
@@ -441,21 +441,26 @@
   <script>
     // Topbar compact
     document.addEventListener('DOMContentLoaded', () => {
-      const hero = document.querySelector('.hero');
-const topbar = document.querySelector('.topbar');
+    const hero = document.getElementById('hero');
+  const topbar = document.querySelector('.topbar');
+  if (!topbar) return;
 
-const stickyPoint = hero.offsetHeight - 80;
+  const stickyPoint = () => (hero ? hero.offsetHeight - 80 : 200);
 
-window.addEventListener('scroll', () => {
-  if(window.scrollY > stickyPoint){
-    topbar.classList.add('is-sticky');
-    document.body.classList.add('topbar-fixed');
-  } else {
-    topbar.classList.remove('is-sticky');
-    document.body.classList.remove('topbar-fixed');
-  }
+  const onScroll = () => {
+    if (window.scrollY > stickyPoint()) {
+      topbar.classList.add('is-sticky');
+      document.body.classList.add('topbar-fixed');
+    } else {
+      topbar.classList.remove('is-sticky');
+      document.body.classList.remove('topbar-fixed');
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
 });
-
       const topbar = document.querySelector('.topbar');
       if (!topbar) return;
 
