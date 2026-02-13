@@ -6,6 +6,29 @@
   <title>Toprak Bakery House • Menü</title>
 
   <style>
+    
+    /* Popup ilk durumda görünmesin */
+.lightbox{
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Açılınca arka plan fade olsun */
+.lightbox.is-open{
+  opacity: 1;
+}
+
+/* Popup kutusu ilk durumda biraz küçük ve aşağıda */
+.lightbox__panel{
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.22s ease;
+}
+
+/* Açılınca yerine oturup büyüsün */
+.lightbox.is-open .lightbox__panel{
+  transform: translateY(0) scale(1);
+}
+
     :root{
       --bg:#0b0b0c;
       --card:#131316;
