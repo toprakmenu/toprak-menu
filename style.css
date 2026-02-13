@@ -150,11 +150,11 @@ body{
   }
 }
 
-/* NEW: ışık sweep katmanı (HTML içine <div class="hero__overlay"></div> eklemelisin) */
+/* NEW: altın tonlu ışık süpürme katmanı (HTML'de .hero__overlay var) */
 .hero__overlay{
   position: absolute;
   inset: 0;
-  z-index: 1;              /* hero::after ile content arasında */
+  z-index: 1;              /* gradient ile content arasında */
   pointer-events: none;
   background: linear-gradient(
     110deg,
@@ -178,12 +178,12 @@ body{
   position:absolute;
   inset:0;
   background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.2));
-  z-index: 1; /* NEW: katman kontrolü */
+  z-index: 2; /* content'in altı, overlay'in üstü */
 }
 
 .hero__content{
   position: relative;
-  z-index: 2;
+  z-index: 3; /* en üstte yazılar */
   max-width: 720px;
 }
 
