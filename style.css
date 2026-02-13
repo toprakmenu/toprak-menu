@@ -1,13 +1,15 @@
 :root{
 
   /* 🎨 ANA TEMA (SADECE BURAYI DEĞİŞTİRECEKSİN) */
---bg:#14110f;
---card:#1d1815;
---gold:#d4a373;
+  --bg:#0b0b0c;
+  --card:#131316;
+  --text:#f2f2f3;
   --muted:#b8b8bf;
   --line:#26262c;
   --gold:#f5c46b;
 
+
+  
   /* 🧩 ALT YÜZEYLER */
   --surface:#111114;
   --surface-2:#0f0f12;
