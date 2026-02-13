@@ -441,6 +441,21 @@
   <script>
     // Topbar compact
     document.addEventListener('DOMContentLoaded', () => {
+      const hero = document.querySelector('.hero');
+const topbar = document.querySelector('.topbar');
+
+const stickyPoint = hero.offsetHeight - 80;
+
+window.addEventListener('scroll', () => {
+  if(window.scrollY > stickyPoint){
+    topbar.classList.add('is-sticky');
+    document.body.classList.add('topbar-fixed');
+  } else {
+    topbar.classList.remove('is-sticky');
+    document.body.classList.remove('topbar-fixed');
+  }
+});
+
       const topbar = document.querySelector('.topbar');
       if (!topbar) return;
 
