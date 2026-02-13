@@ -420,7 +420,6 @@ body{
 
 
 
-/* ✅ GARANTİ: hero bittikten sonra topbar fixed olur */
 .topbar{ position: relative; }
 
 .topbar.is-fixed{
@@ -429,6 +428,10 @@ body{
   left: 0;
   right: 0;
   z-index: 99999;
+}
+
+body.has-fixed-topbar{
+  padding-top: var(--topbar-h, 0px);
 }
 
 /* fixed olunca içerik alttan başlamasın diye boşluk */
