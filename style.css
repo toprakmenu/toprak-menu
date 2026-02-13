@@ -1,3 +1,5 @@
+body{ outline: 8px solid lime !important; }
+
 :root{
   /* ANA TEMA */
 --bg:#1a1412;
