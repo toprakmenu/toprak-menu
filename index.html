@@ -5,376 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Toprak Bakery House • Menü</title>
 
-  <style>
-    :root{
-      --bg:#0b0b0c;
-      --card:#131316;
-      --text:#f2f2f3;
-      --muted:#b8b8bf;
-      --line:#26262c;
-      --gold:#f5c46b;
-    }
+  <!-- ✅ TÜM CSS ARTIK BURADAN GELİYOR -->
+  <link rel="stylesheet" href="style.css">
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:var(--bg);
-      color:var(--text);
-    }
-
-    /* HERO */
-    .hero{
-      position: relative;
-      height: 320px;
-      min-height: 200px;
-      background-image: url("images/header.jpg");
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      display: flex;
-      align-items: flex-end;
-      padding: 24px;
-      z-index: 0;
-
-      overflow: hidden;
-      opacity: 0;
-      transform: scale(1.06);
-      animation: heroReveal 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
-      will-change: transform, opacity;
-    }
-
-    @keyframes heroReveal{
-      to{ opacity: 1; transform: scale(1); }
-    }
-
-    .hero__overlay{
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background: linear-gradient(
-        110deg,
-        transparent 0%,
-        rgba(255,215,160,0.06) 40%,
-        rgba(255,215,160,0.16) 50%,
-        rgba(255,215,160,0.06) 60%,
-        transparent 100%
-      );
-      transform: translateX(-120%);
-      animation: lightSweep 2.6s ease-out forwards;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes lightSweep{
-      to{ transform: translateX(120%); }
-    }
-
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.2));
-      z-index: 2;
-    }
-
-    .hero__content{
-      position: relative;
-      z-index: 3;
-      max-width: 720px;
-    }
-
-    .hero__badge{
-      display:inline-block;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(6px);
-      padding:6px 12px;
-      border-radius: 999px;
-      font-size:12px;
-      margin-bottom:12px;
-      color:#fff;
-      letter-spacing:.5px;
-    }
-
-    .hero h1{
-      margin:0;
-      font-size:32px;
-      font-weight:900;
-      letter-spacing:.5px;
-    }
-
-    .hero p{
-      margin-top:6px;
-      font-size:15px;
-      color:#eaeaea;
-    }
-
-    /* TOPBAR */
-    .topbar{
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(11,11,12,.92);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      padding: 14px 14px 10px;
-      transition: padding 220ms ease, background 220ms ease;
-    }
-
-    .brand__title{
-      font-weight: 800;
-      font-size: 18px;
-      letter-spacing: .2px;
-      transition: font-size 220ms ease;
-    }
-    .brand__sub{
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-      transition: opacity 220ms ease, height 220ms ease, margin 220ms ease;
-    }
-
-    .topbar.is-compact{
-      padding: 10px 14px 8px;
-      background: rgba(11,11,12,.96);
-    }
-    .topbar.is-compact .brand__title{ font-size: 16px; }
-    .topbar.is-compact .brand__sub{
-      opacity: 0;
-      height: 0;
-      margin: 0;
-      overflow: hidden;
-    }
-
-    .tabs{
-      display:flex;
-      gap:10px;
-      overflow:auto;
-      padding-top:10px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .tabs a{
-      color: var(--text);
-      text-decoration: none;
-      border: 1px solid var(--line);
-      background: #111114;
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .wrap{
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 14px;
-    }
-
-    .section{ margin: 18px 0 26px; }
-    .section h2{
-      margin: 0 0 10px;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-
-    .item{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding: 12px;
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: 14px;
-      text-decoration:none;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    .item__img{
-      width:72px;
-      height:72px;
-      border-radius: 12px;
-      object-fit: cover;
-      flex: 0 0 72px;
-      background:#0f0f12;
-      border: 1px solid #1f1f25;
-    }
-
-    .item__body{
-      min-width: 0;
-      flex: 1;
-    }
-    .item__name{
-      font-weight: 750;
-      font-size: 15px;
-    }
-    .item__desc{
-      margin-top: 4px;
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.25;
-    }
-
-    .item__price{
-      font-weight: 800;
-      font-size: 14px;
-      padding-left: 8px;
-      white-space: nowrap;
-    }
-
-    .footer{
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 12px;
-      padding: 16px 0 24px;
-      text-align:center;
-    }
-
-    /* ✅ CUSTOM LIGHTBOX (ANİMASYONLU + display:none YOK) */
-    .lightbox{
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-
-      /* layout */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-
-      /* closed state */
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-
-      transition: opacity 0.20s ease, visibility 0s linear 0.20s;
-    }
-
-    .lightbox.is-open{
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transition: opacity 0.20s ease, visibility 0s linear 0s;
-    }
-
-    .lightbox__backdrop{
-      position:absolute;
-      inset:0;
-      background: rgba(0,0,0,.75);
-      opacity: 0;
-      transition: opacity 0.20s ease;
-    }
-    .lightbox.is-open .lightbox__backdrop{
-      opacity: 1;
-    }
-
-    /* Panel: fade+zoom hissi */
-    .lightbox__panel{
-      position: relative;
-      width: min(92vw, 860px);
-      background: transparent;
-      z-index: 2;
-
-      transform: translateY(10px) scale(0.98);
-      transition: transform 0.22s ease;
-      will-change: transform;
-    }
-    .lightbox.is-open .lightbox__panel{
-      transform: translateY(0) scale(1);
-    }
-
-    .lightbox__content{
-      background: #111114;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-    }
-
-    .lightbox__img{
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: #0f0f12;
-    }
-
-    .lightbox__meta{
-      padding: 16px;
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      background: #111114;
-      color: #ffffff;
-    }
-
-    .lightbox__title{
-      font-weight: 800;
-      font-size: 16px;
-      color: #ffffff;
-    }
-
-    .lightbox__price{
-      font-weight: 900;
-      font-size: 16px;
-      color: var(--gold);
-    }
-
-    .lightbox__close{
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      z-index: 50;
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.25);
-      background: rgba(0,0,0,.45);
-      color: #fff;
-      font-size: 18px;
-      cursor: pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .lightbox, .lightbox__backdrop, .lightbox__panel{
-        transition: none !important;
-        transform: none !important;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-  <section class="hero">
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-      <div class="hero__badge">Since 2026 • İzmit</div>
-      <h1>Toprak Bakery House</h1>
-      <p>Artisan Sourdough • Specialty Coffee</p>
-    </div>
-  </section>
+<section class="hero">
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <div class="hero__badge">Since 2026 • İzmit</div>
+    <h1>Toprak Bakery House</h1>
+    <p>Artisan Sourdough • Specialty Coffee</p>
+  </div>
+</section>
 
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand__title">Toprak Bakery House</div>
-      <div class="brand__sub">QR Menü • Servis: 15–20 dk • F.D.T: 19.01.2026</div>
-    </div>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand__title">Toprak Bakery House</div>
+    <div class="brand__sub">QR Menü • Servis: 15–20 dk • F.D.T: 19.01.2026</div>
+  </div>
 
-    <nav class="tabs">
-      <a href="#kahvalti">Kahvaltı</a>
-      <a href="#tartine">Tartine</a>
-      <a href="#sandvic">Sandviç</a>
-      <a href="#firin">Fırın</a>
-      <a href="#tatlilar">Tatlılar</a>
-      <a href="#icecek">İçecek</a>
-    </nav>
-  </header>
+  <nav class="tabs">
+    <a href="#kahvalti">Kahvaltı</a>
+    <a href="#tartine">Tartine</a>
+    <a href="#sandvic">Sandviç</a>
+    <a href="#firin">Fırın</a>
+    <a href="#tatlilar">Tatlılar</a>
+    <a href="#icecek">İçecek</a>
+  </nav>
+</header>
 
-  <main class="wrap">
+ <main class="wrap">
     <section class="section">
       <div style="color: var(--muted); font-size: 12px; line-height: 1.35; margin-bottom: 10px;">
         Tezgah ürünleri gün içerisinde tükenmektedir, lütfen sorunuz. Özel tercih ve alerjinizi sipariş verirken belirtiniz.
@@ -754,104 +417,76 @@
       </a>
     </section>
 
-    <footer class="footer">
-      <div>© Toprak Bakery House</div>
-    </footer>
-  </main>
+  <footer class="footer">
+    <div>© Toprak Bakery House</div>
+  </footer>
+</main>
 
-  <!-- ✅ CUSTOM LIGHTBOX -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <div class="lightbox__backdrop" data-close="1"></div>
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lightbox__backdrop" data-close="1"></div>
 
-    <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Ürün Detayı">
-      <button type="button" class="lightbox__close" aria-label="Kapat">✕</button>
+  <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Ürün Detayı">
+    <button type="button" class="lightbox__close" aria-label="Kapat">✕</button>
 
-      <div class="lightbox__content">
-        <img id="lightboxImg" class="lightbox__img" alt="" />
-        <div class="lightbox__meta">
-          <div id="lightboxTitle" class="lightbox__title"></div>
-          <div id="lightboxPrice" class="lightbox__price"></div>
-        </div>
+    <div class="lightbox__content">
+      <img id="lightboxImg" class="lightbox__img" alt="" />
+      <div class="lightbox__meta">
+        <div id="lightboxTitle" class="lightbox__title"></div>
+        <div id="lightboxPrice" class="lightbox__price"></div>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    // Topbar compact
-    document.addEventListener('DOMContentLoaded', () => {
-      const topbar = document.querySelector('.topbar');
-      if (!topbar) return;
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-      const onScroll = () => {
-        if (window.scrollY > 40) topbar.classList.add('is-compact');
-        else topbar.classList.remove('is-compact');
-      };
+  const topbar = document.querySelector('.topbar');
 
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    });
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) topbar.classList.add('is-compact');
+    else topbar.classList.remove('is-compact');
+  }, { passive: true });
 
-    // ✅ Custom Lightbox (mobil + PC garanti)
-    document.addEventListener('DOMContentLoaded', () => {
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lightboxImg');
-      const lbTitle = document.getElementById('lightboxTitle');
-      const lbPrice = document.getElementById('lightboxPrice');
-      const btnClose = lb?.querySelector('.lightbox__close');
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const lbTitle = document.getElementById('lightboxTitle');
+  const lbPrice = document.getElementById('lightboxPrice');
 
-      if (!lb || !lbImg || !lbTitle || !lbPrice || !btnClose) return;
+  const open = (src, alt, title, price) => {
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lbTitle.textContent = title || '';
+    lbPrice.textContent = price || '';
+    lb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  };
 
-      const open = (src, alt, title, price) => {
-        lbImg.src = src;
-        lbImg.alt = alt || 'Ürün fotoğrafı';
-        lbTitle.textContent = title || '';
-        lbPrice.textContent = price || '';
+  const close = () => {
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  };
 
-        lb.classList.add('is-open');
-        lb.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      };
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('a.item');
+    if (!item) return;
 
-      const close = () => {
-        lb.classList.remove('is-open');
-        lb.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        lbImg.src = '';
-      };
+    e.preventDefault();
 
-      // Kartın tamamına tıklayınca aç (mobil dahil)
-      document.addEventListener('click', (e) => {
-        const item = e.target.closest('a.item');
-        if (!item) return;
+    const img = item.querySelector('img.item__img');
+    const title = item.querySelector('.item__name')?.textContent || '';
+    const price = item.querySelector('.item__price')?.textContent || '';
 
-        e.preventDefault();
+    open(img.src, img.alt, title, price);
+  });
 
-        const img = item.querySelector('img.item__img');
-        if (!img) return;
+  lb.querySelector('.lightbox__close').onclick = close;
+  lb.onclick = e => { if(e.target.dataset.close) close(); }
 
-        const title = item.querySelector('.item__name')?.textContent || '';
-        const price = item.querySelector('.item__price')?.textContent || '';
-        open(img.src, img.alt, title, price);
-      }, { passive: false });
-
-      // X ile kapat
-      btnClose.addEventListener('click', (e) => {
-        e.preventDefault();
-        close();
-      });
-
-      // Backdrop'a tıkla kapat
-      lb.addEventListener('click', (e) => {
-        const shouldClose = e.target?.dataset?.close === "1";
-        if (shouldClose) close();
-      });
-
-      // ESC ile kapat
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
-      });
-    });
-  </script>
+});
+</script>
 
 </body>
 </html>
