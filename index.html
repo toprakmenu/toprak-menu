@@ -5,32 +5,331 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Toprak Bakery House • Menü</title>
 
-  <!-- DIŞ CSS: style.css -->
- <link rel="stylesheet" href="./style.css?v=1" />
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --card:#131316;
+      --text:#f2f2f3;
+      --muted:#b8b8bf;
+      --line:#26262c;
+      --gold:#f5c46b;
+    }
 
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* HERO */
+    .hero{
+      position: relative;
+      height: 320px;
+      min-height: 200px;
+      background-image: url("images/header.jpg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      z-index: 0;
+
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(1.06);
+      animation: heroReveal 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
+      will-change: transform, opacity;
+    }
+
+    @keyframes heroReveal{
+      to{ opacity: 1; transform: scale(1); }
+    }
+
+    .hero__overlay{
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(
+        110deg,
+        transparent 0%,
+        rgba(255,215,160,0.06) 40%,
+        rgba(255,215,160,0.16) 50%,
+        rgba(255,215,160,0.06) 60%,
+        transparent 100%
+      );
+      transform: translateX(-120%);
+      animation: lightSweep 2.6s ease-out forwards;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes lightSweep{
+      to{ transform: translateX(120%); }
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.2));
+      z-index: 2;
+    }
+
+    .hero__content{
+      position: relative;
+      z-index: 3;
+      max-width: 720px;
+    }
+
+    .hero__badge{
+      display:inline-block;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(6px);
+      padding:6px 12px;
+      border-radius: 999px;
+      font-size:12px;
+      margin-bottom:12px;
+      color:#fff;
+      letter-spacing:.5px;
+    }
+
+    .hero h1{
+      margin:0;
+      font-size:32px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+
+    .hero p{
+      margin-top:6px;
+      font-size:15px;
+      color:#eaeaea;
+    }
+
+    /* TOPBAR */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11,11,12,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 14px 10px;
+      transition: padding 220ms ease, background 220ms ease;
+    }
+
+    .brand__title{
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: .2px;
+      transition: font-size 220ms ease;
+    }
+    .brand__sub{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      transition: opacity 220ms ease, height 220ms ease, margin 220ms ease;
+    }
+
+    .topbar.is-compact{
+      padding: 10px 14px 8px;
+      background: rgba(11,11,12,.96);
+    }
+    .topbar.is-compact .brand__title{ font-size: 16px; }
+    .topbar.is-compact .brand__sub{
+      opacity: 0;
+      height: 0;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .tabs{
+      display:flex;
+      gap:10px;
+      overflow:auto;
+      padding-top:10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tabs a{
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: #111114;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .wrap{
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    .section{ margin: 18px 0 26px; }
+    .section h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+
+    .item{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 14px;
+      text-decoration:none;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .item__img{
+      width:72px;
+      height:72px;
+      border-radius: 12px;
+      object-fit: cover;
+      flex: 0 0 72px;
+      background:#0f0f12;
+      border: 1px solid #1f1f25;
+    }
+
+    .item__body{
+      min-width: 0;
+      flex: 1;
+    }
+    .item__name{
+      font-weight: 750;
+      font-size: 15px;
+    }
+    .item__desc{
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .item__price{
+      font-weight: 800;
+      font-size: 14px;
+      padding-left: 8px;
+      white-space: nowrap;
+    }
+
+    .footer{
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      padding: 16px 0 24px;
+      text-align:center;
+    }
+
+    /* ✅ CUSTOM LIGHTBOX */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .lightbox.is-open{ display: flex; }
+
+    .lightbox__backdrop{
+      position:absolute;
+      inset:0;
+      background: rgba(0,0,0,.75);
+    }
+
+    .lightbox__panel{
+      position: relative;
+      width: min(92vw, 860px);
+      background: transparent;
+      z-index: 2;
+    }
+
+    .lightbox__content{
+      background: #111114;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .lightbox__img{
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: #0f0f12;
+    }
+
+    .lightbox__meta{
+      padding: 16px;
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      background: #111114;
+      color: #ffffff;
+    }
+
+    .lightbox__title{
+      font-weight: 800;
+      font-size: 16px;
+      color: #ffffff;
+    }
+
+    .lightbox__price{
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--gold);
+    }
+
+    .lightbox__close{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 50;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(0,0,0,.45);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- HERO -->
-  <header class="hero" id="top">
-    <div class="hero__overlay" aria-hidden="true"></div>
-
+  <section class="hero">
+    <div class="hero__overlay"></div>
     <div class="hero__content">
       <div class="hero__badge">Since 2026 • İzmit</div>
       <h1>Toprak Bakery House</h1>
       <p>Artisan Sourdough • Specialty Coffee</p>
     </div>
-  </header>
+  </section>
 
-  <!-- TOPBAR -->
-  <div class="topbar" id="topbar">
+  <header class="topbar">
     <div class="brand">
       <div class="brand__title">Toprak Bakery House</div>
       <div class="brand__sub">QR Menü • Servis: 15–20 dk • F.D.T: 19.01.2026</div>
     </div>
 
-    <nav class="tabs" aria-label="Kategoriler">
+    <nav class="tabs">
       <a href="#kahvalti">Kahvaltı</a>
       <a href="#tartine">Tartine</a>
       <a href="#sandvic">Sandviç</a>
@@ -38,25 +337,22 @@
       <a href="#tatlilar">Tatlılar</a>
       <a href="#icecek">İçecek</a>
     </nav>
-  </div>
+  </header>
 
   <main class="wrap">
-    <p style="margin:14px 0 0; font-size:12px; opacity:.75;">
-      Tezgah ürünleri gün içerisinde tükenmektedir, lütfen sorunuz. Özel tercih ve alerjinizi sipariş verirken belirtiniz. Fiyatlarımız TL cinsindedir ve KDV dahildir.
-    </p>
+    <section class="section">
+      <div style="color: var(--muted); font-size: 12px; line-height: 1.35; margin-bottom: 10px;">
+        Tezgah ürünleri gün içerisinde tükenmektedir, lütfen sorunuz. Özel tercih ve alerjinizi sipariş verirken belirtiniz.
+        Fiyatlarımız TL cinsindedir ve KDV dahildir.
+      </div>
+    </section>
 
-    <!-- =======================
-         KAHVALTI
-         ======================= -->
-    <section class="section" id="kahvalti">
+    <!-- KAHVALTI -->
+    <section id="kahvalti" class="section">
       <h2>Kahvaltı</h2>
 
-      <!-- ÖRNEK ITEM -->
-      <a class="item" href="javascript:void(0)"
-         data-name="Toprak Granola"
-         data-price="380 TL"
-         data-img="images/granola.jpg">
-        <img class="item__img" src="images/granola.jpg" alt="Toprak Granola" loading="lazy" />
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/toprak-granola.jpg" alt="Toprak Granola" />
         <div class="item__body">
           <div class="item__name">Toprak Granola</div>
           <div class="item__desc">El yapımı granola, süzme yoğurt, mevsim meyveleri, yer fıstığı ezmesi. (Glutensiz/çiğ karabuğday +40 TL)</div>
@@ -64,144 +360,461 @@
         <div class="item__price">380 TL</div>
       </a>
 
-      <!-- boş görsel için örnek -->
-      <a class="item" href="javascript:void(0)"
-         data-name="Toprak Kahvaltı"
-         data-price="420 TL"
-         data-img="">
-        <img class="item__img" src="images/placeholder.jpg" alt="Toprak Kahvaltı" loading="lazy" />
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Toprak Kahvaltı" />
         <div class="item__body">
           <div class="item__name">Toprak Kahvaltı</div>
-          <div class="item__desc">2 dilim ekşi mayalı ekmek, çırpılmış yumurta, domates, salatalık, zeytin, tereyağı, acuka.</div>
+          <div class="item__desc">2 dilim ekşi mayalı ekmek, çırpılmış yumurta, domates, salatalık, zeytin, tereyağ, acuka, ezine peyniri, mevsim reçeli, yeşillik</div>
         </div>
         <div class="item__price">420 TL</div>
       </a>
     </section>
 
-    <!-- =======================
-         TARTINE
-         ======================= -->
-    <section class="section" id="tartine">
-      <h2>Tartine</h2>
+    <!-- TARTINE -->
+    <section id="tartine" class="section">
+      <h2>Tartine (Ekmek Üstü)</h2>
 
-      <!-- Buraya kendi ürünlerini aynı formatta ekle -->
-      <!--
-      <a class="item" href="javascript:void(0)" data-name="..." data-price="..." data-img="images/...jpg">
-        <img class="item__img" src="images/...jpg" alt="..." loading="lazy" />
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Caprese Tartine" />
         <div class="item__body">
-          <div class="item__name">...</div>
-          <div class="item__desc">...</div>
+          <div class="item__name">Caprese Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü pesto, taze peynir, domates, balsamik glaze, taze fesleğen</div>
         </div>
-        <div class="item__price">...</div>
+        <div class="item__price">370 TL</div>
       </a>
-      -->
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Avokado Tartine" />
+        <div class="item__body">
+          <div class="item__name">Avokado Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü peynirli avokado püresi, çırpılmış yumurta</div>
+        </div>
+        <div class="item__price">385 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Köz Biber Tartine" />
+        <div class="item__body">
+          <div class="item__name">Köz Biber Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü ezine peyniri, közlenmiş kapya biber, maydanoz</div>
+        </div>
+        <div class="item__price">370 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Hindi Füme Tartine" />
+        <div class="item__body">
+          <div class="item__name">Hindi Füme Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü zeytin ezmesi, hindi füme, bergama tulum peynirli çırpılmış yumurta</div>
+        </div>
+        <div class="item__price">390 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Rozbif Tartine" />
+        <div class="item__body">
+          <div class="item__name">Rozbif Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü hardal-lor kreması, rozbif, kırmızı lahana turşusu, roka</div>
+        </div>
+        <div class="item__price">400 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Kestane Mantarı Tartine" />
+        <div class="item__body">
+          <div class="item__name">Kestane Mantarı Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü peynir kreması, çırpılmış yumurta, sotelenmiş kestane mantarı</div>
+        </div>
+        <div class="item__price">400 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Karadut - Hellim Tartine" />
+        <div class="item__body">
+          <div class="item__name">Karadut - Hellim Tartine</div>
+          <div class="item__desc">Ekşi mayalı ekmek üstü peynir kreması, kızarmış hellim, karadut reçeli</div>
+        </div>
+        <div class="item__price">410 TL</div>
+      </a>
     </section>
 
-    <!-- =======================
-         SANDVİÇ
-         ======================= -->
-    <section class="section" id="sandvic">
-      <h2>Sandviç</h2>
+    <!-- SANDVİÇ -->
+    <section id="sandvic" class="section">
+      <h2>Kruvasan Sandviçler</h2>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Caprese Kruvasan" />
+        <div class="item__body">
+          <div class="item__name">Caprese Kruvasan</div>
+          <div class="item__desc">Pesto, domates, peynir, balsamik glaze, roka</div>
+        </div>
+        <div class="item__price">375 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Hindi Füme Kruvasan" />
+        <div class="item__body">
+          <div class="item__name">Hindi Füme Kruvasan</div>
+          <div class="item__desc">Zeytin ezmesi, hindi füme, bergama tulum, salatalık</div>
+        </div>
+        <div class="item__price">385 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Rozbif Kruvasan" />
+        <div class="item__body">
+          <div class="item__name">Rozbif Kruvasan</div>
+          <div class="item__desc">Labne-hardal kreması, rozbif, kırmızı lahana turşusu, roka</div>
+        </div>
+        <div class="item__price">410 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Çırpılmış Yumurtalı Hindi Fümeli Kruvasan" />
+        <div class="item__body">
+          <div class="item__name">Çırpılmış Yumurtalı Hindi Fümeli Kruvasan</div>
+          <div class="item__desc">3 yumurta, hindi füme</div>
+        </div>
+        <div class="item__price">400 TL</div>
+      </a>
+
+      <h2 style="margin-top:18px;">Focaccia Sandviçler</h2>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Focaccia Caprese" />
+        <div class="item__body">
+          <div class="item__name">Focaccia Caprese</div>
+          <div class="item__desc">Pesto, domates, peynir, balsamik glaze, roka</div>
+        </div>
+        <div class="item__price">370 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Focaccia Hindi Füme" />
+        <div class="item__body">
+          <div class="item__name">Focaccia Hindi Füme</div>
+          <div class="item__desc">Zeytin ezmesi, hindi füme, bergama tulum, salatalık</div>
+        </div>
+        <div class="item__price">380 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)">
+        <img class="item__img" src="images/placeholder.png" alt="Focaccia Rozbif" />
+        <div class="item__body">
+          <div class="item__name">Focaccia Rozbif</div>
+          <div class="item__desc">Labne-hardal kreması, rozbif, kırmızı lahana turşusu, roka</div>
+        </div>
+        <div class="item__price">400 TL</div>
+      </a>
     </section>
 
-    <!-- =======================
-         FIRIN
-         ======================= -->
-    <section class="section" id="firin">
-      <h2>Fırın</h2>
+    <!-- FIRIN -->
+    <section id="firin" class="section">
+      <h2>Kruvasanlar</h2>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Sade Kruvasan" />
+        <div class="item__body"><div class="item__name">Sade Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">150 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Pırasalı Danish" />
+        <div class="item__body"><div class="item__name">Pırasalı Danish</div><div class="item__desc"></div></div>
+        <div class="item__price">200 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Çikolatalı Kruvasan" />
+        <div class="item__body"><div class="item__name">Çikolatalı Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">180 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Bademli Kruvasan" />
+        <div class="item__body"><div class="item__name">Bademli Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">360 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Orman Meyveli Danish" />
+        <div class="item__body"><div class="item__name">Orman Meyveli Danish</div><div class="item__desc"></div></div>
+        <div class="item__price">220 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Pastacı Kremalı Çilekli Kruvasan" />
+        <div class="item__body"><div class="item__name">Pastacı Kremalı Çilekli Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">370 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Fındık Ezmeli Muzlu Kruvasan" />
+        <div class="item__body"><div class="item__name">Fındık Ezmeli Muzlu Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">370 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Antep Fıstıklı Kruvasan" />
+        <div class="item__body"><div class="item__name">Antep Fıstıklı Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">380 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Antep Fıstıklı - Vişneli Kruvasan" />
+        <div class="item__body"><div class="item__name">Antep Fıstıklı - Vişneli Kruvasan</div><div class="item__desc"></div></div>
+        <div class="item__price">395 TL</div>
+      </a>
+
+      <h2 style="margin-top:18px;">Poğaçalar</h2>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Siyez Poğaça" />
+        <div class="item__body"><div class="item__name">Siyez Poğaça</div><div class="item__desc"></div></div>
+        <div class="item__price">80 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Karabuğday Poğaça" />
+        <div class="item__body"><div class="item__name">Karabuğday Poğaça</div><div class="item__desc"></div></div>
+        <div class="item__price">95 TL</div>
+      </a>
     </section>
 
-    <!-- =======================
-         TATLILAR
-         ======================= -->
-    <section class="section" id="tatlilar">
+    <!-- TATLILAR -->
+    <section id="tatlilar" class="section">
       <h2>Tatlılar</h2>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Cookie" />
+        <div class="item__body"><div class="item__name">Cookie</div><div class="item__desc"></div></div>
+        <div class="item__price">150 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Glutensiz Frambuaz Brownie" />
+        <div class="item__body"><div class="item__name">Glutensiz Frambuaz Brownie</div><div class="item__desc"></div></div>
+        <div class="item__price">300 TL</div>
+      </a>
+
+      <h2 style="margin-top:18px;">Tatlılar (Hafta sonu)</h2>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Tiramisu" />
+        <div class="item__body"><div class="item__name">Tiramisu</div><div class="item__desc"></div></div>
+        <div class="item__price">330 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Cheesecake" />
+        <div class="item__body"><div class="item__name">Cheesecake</div><div class="item__desc"></div></div>
+        <div class="item__price">280 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Cinnamon Roll" />
+        <div class="item__body"><div class="item__name">Cinnamon Roll</div><div class="item__desc"></div></div>
+        <div class="item__price">200 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Antep - Vişne Roll" />
+        <div class="item__body"><div class="item__name">Antep - Vişne Roll</div><div class="item__desc"></div></div>
+        <div class="item__price">350 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Haftanın Keki" />
+        <div class="item__body"><div class="item__name">Haftanın Keki</div><div class="item__desc"></div></div>
+        <div class="item__price">150 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Elmalı Kurabiye" />
+        <div class="item__body"><div class="item__name">Elmalı Kurabiye</div><div class="item__desc"></div></div>
+        <div class="item__price">150 TL</div>
+      </a>
     </section>
 
-    <!-- =======================
-         İÇECEK
-         ======================= -->
-    <section class="section" id="icecek">
-      <h2>İçecek</h2>
+    <!-- İÇECEK -->
+    <section id="icecek" class="section">
+      <h2>Sıcak İçecekler</h2>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Çay" />
+        <div class="item__body"><div class="item__name">Çay</div><div class="item__desc"></div></div>
+        <div class="item__price">60 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Fincan Çay" />
+        <div class="item__body"><div class="item__name">Fincan Çay</div><div class="item__desc"></div></div>
+        <div class="item__price">100 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Türk Kahvesi" />
+        <div class="item__body"><div class="item__name">Türk Kahvesi</div><div class="item__desc"></div></div>
+        <div class="item__price">130 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Filtre Kahve" />
+        <div class="item__body"><div class="item__name">Filtre Kahve</div><div class="item__desc"></div></div>
+        <div class="item__price">160 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Americano" />
+        <div class="item__body"><div class="item__name">Americano</div><div class="item__desc"></div></div>
+        <div class="item__price">170 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Espresso" />
+        <div class="item__body"><div class="item__name">Espresso</div><div class="item__desc"></div></div>
+        <div class="item__price">130 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Latte" />
+        <div class="item__body"><div class="item__name">Latte</div><div class="item__desc"></div></div>
+        <div class="item__price">200 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Cappucino" />
+        <div class="item__body"><div class="item__name">Cappucino</div><div class="item__desc"></div></div>
+        <div class="item__price">200 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Flat White" />
+        <div class="item__body"><div class="item__name">Flat White</div><div class="item__desc"></div></div>
+        <div class="item__price">200 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Cortado" />
+        <div class="item__body"><div class="item__name">Cortado</div><div class="item__desc"></div></div>
+        <div class="item__price">190 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Bitki Çayları" />
+        <div class="item__body"><div class="item__name">Bitki Çayları</div><div class="item__desc">Melisa, Hibiscus, Yeşilçay, Adaçayı</div></div>
+        <div class="item__price">170 TL</div>
+      </a>
+
+      <h2 style="margin-top:18px;">Soğuk İçecekler</h2>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Su" />
+        <div class="item__body"><div class="item__name">Su</div><div class="item__desc"></div></div>
+        <div class="item__price">50 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Soda" />
+        <div class="item__body"><div class="item__name">Soda</div><div class="item__desc"></div></div>
+        <div class="item__price">75 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Iced Americano" />
+        <div class="item__body"><div class="item__name">Iced Americano</div><div class="item__desc"></div></div>
+        <div class="item__price">180 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Iced Latte" />
+        <div class="item__body"><div class="item__name">Iced Latte</div><div class="item__desc"></div></div>
+        <div class="item__price">210 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Portakallı Limonata" />
+        <div class="item__body"><div class="item__name">Portakallı Limonata</div><div class="item__desc">El yapımı</div></div>
+        <div class="item__price">170 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Hibiscus" />
+        <div class="item__body"><div class="item__name">Hibiscus</div><div class="item__desc">El yapımı</div></div>
+        <div class="item__price">180 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Kombucha" />
+        <div class="item__body"><div class="item__name">Kombucha</div><div class="item__desc">Sade, Lavanta, Lime&Nane, Şeftali&Gül, Ananas</div></div>
+        <div class="item__price">180 TL</div>
+      </a>
+
+      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Uludağ Gazoz" />
+        <div class="item__body"><div class="item__name">Uludağ Gazoz</div><div class="item__desc"></div></div>
+        <div class="item__price">100 TL</div>
+      </a>
     </section>
 
     <footer class="footer">
-      © <span id="yil"></span> Toprak Bakery House • İzmit
+      <div>© Toprak Bakery House</div>
     </footer>
   </main>
 
-  <!-- LIGHTBOX (aynı kalabilir, silme) -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <div class="lightbox__backdrop" data-close></div>
+  <!-- ✅ CUSTOM LIGHTBOX -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <div class="lightbox__backdrop" data-close="1"></div>
 
     <div class="lightbox__panel" role="dialog" aria-modal="true" aria-label="Ürün Detayı">
-      <button class="lightbox__close" type="button" aria-label="Kapat" data-close>×</button>
+      <button type="button" class="lightbox__close" aria-label="Kapat">✕</button>
 
       <div class="lightbox__content">
-        <img class="lightbox__img" id="lbImg" src="" alt="" />
+        <img id="lightboxImg" class="lightbox__img" alt="" />
         <div class="lightbox__meta">
-          <div class="lightbox__title" id="lbTitle">Ürün</div>
-          <div class="lightbox__price" id="lbPrice">0 TL</div>
+          <div id="lightboxTitle" class="lightbox__title"></div>
+          <div id="lightboxPrice" class="lightbox__price"></div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // yıl
-    document.getElementById("yil").textContent = new Date().getFullYear();
+    // Topbar compact
+    document.addEventListener('DOMContentLoaded', () => {
+      const topbar = document.querySelector('.topbar');
+      if (!topbar) return;
 
-    // scroll ile topbar küçült
-    const topbar = document.getElementById("topbar");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 120) topbar.classList.add("is-compact");
-      else topbar.classList.remove("is-compact");
-    }, { passive: true });
+      const onScroll = () => {
+        if (window.scrollY > 40) topbar.classList.add('is-compact');
+        else topbar.classList.remove('is-compact');
+      };
 
-    // Lightbox
-    const lb = document.getElementById("lightbox");
-    const lbImg = document.getElementById("lbImg");
-    const lbTitle = document.getElementById("lbTitle");
-    const lbPrice = document.getElementById("lbPrice");
-
-    function openLB({ name, price, img }) {
-      lbTitle.textContent = name || "";
-      lbPrice.textContent = price || "";
-      if (img) {
-        lbImg.src = img;
-        lbImg.alt = name || "";
-      } else {
-        lbImg.src = "images/placeholder.jpg";
-        lbImg.alt = name || "";
-      }
-      lb.classList.add("is-open");
-      lb.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeLB() {
-      lb.classList.remove("is-open");
-      lb.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    // item tıkla -> aç
-    document.addEventListener("click", (e) => {
-      const item = e.target.closest(".item");
-      if (item) {
-        openLB({
-          name: item.dataset.name,
-          price: item.dataset.price,
-          img: item.dataset.img
-        });
-      }
-
-      if (e.target.matches("[data-close]")) closeLB();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
     });
 
-    // ESC -> kapat
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeLB();
+    // ✅ Custom Lightbox (mobil + PC garanti)
+    document.addEventListener('DOMContentLoaded', () => {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightboxImg');
+      const lbTitle = document.getElementById('lightboxTitle');
+      const lbPrice = document.getElementById('lightboxPrice');
+      const btnClose = lb?.querySelector('.lightbox__close');
+
+      if (!lb || !lbImg || !lbTitle || !lbPrice || !btnClose) return;
+
+      const open = (src, alt, title, price) => {
+        lbImg.src = src;
+        lbImg.alt = alt || 'Ürün fotoğrafı';
+        lbTitle.textContent = title || '';
+        lbPrice.textContent = price || '';
+
+        lb.classList.add('is-open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const close = () => {
+        lb.classList.remove('is-open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+      };
+
+      // Kartın tamamına tıklayınca aç (mobil dahil)
+      document.addEventListener('click', (e) => {
+        const item = e.target.closest('a.item');
+        if (!item) return;
+
+        e.preventDefault();
+
+        const img = item.querySelector('img.item__img');
+        if (!img) return;
+
+        const title = item.querySelector('.item__name')?.textContent || '';
+        const price = item.querySelector('.item__price')?.textContent || '';
+        open(img.src, img.alt, title, price);
+      }, { passive: false });
+
+      // X ile kapat
+      btnClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        close();
+      });
+
+      // Backdrop'a tıkla kapat
+      lb.addEventListener('click', (e) => {
+        const shouldClose = e.target?.dataset?.close === "1";
+        if (shouldClose) close();
+      });
+
+      // ESC ile kapat
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
+      });
     });
   </script>
 
