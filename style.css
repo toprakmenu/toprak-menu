@@ -1,19 +1,20 @@
 :root{
-  --bg:#f3f4f6;
- --card:#ffffff;
-  --text:#1f2937;
-  --muted:#b8b8bf;
-  --line:#26262c;
-  --gold:#f5c46b;
+  --bg:#f3f4f6;        /* sayfa zemini */
+  --card:#ffffff;      /* kart zemini */
+  --text:#111827;      /* ana yazı */
+  --muted:#6b7280;     /* açıklama yazısı */
+  --line:#e5e7eb;      /* çizgi/border */
+  --gold:#c58b1e;      /* vurgu/fiyat altın */
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
+
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* HERO */
@@ -57,9 +58,7 @@ body{
   animation: lightSweep 2.6s ease-out forwards;
   mix-blend-mode: screen;
 }
-@keyframes lightSweep{
-  to{ transform: translateX(120%); }
-}
+@keyframes lightSweep{ to{ transform: translateX(120%); } }
 
 .hero::after{
   content:"";
@@ -69,11 +68,7 @@ body{
   z-index: 2;
 }
 
-.hero__content{
-  position: relative;
-  z-index: 3;
-  max-width: 720px;
-}
+.hero__content{ position: relative; z-index: 3; max-width: 720px; }
 
 .hero__badge{
   display:inline-block;
@@ -92,11 +87,12 @@ body{
   font-size:32px;
   font-weight:900;
   letter-spacing:.5px;
+  color:#fff;
 }
 .hero p{
   margin-top:6px;
   font-size:15px;
-  color:#eaeaea;
+  color:#f3f4f6;
 }
 
 /* TOPBAR */
@@ -106,17 +102,17 @@ body{
   z-index: 10;
   background: rgba(243,244,246,.92);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #e7e7ea;
+  border-bottom: 1px solid var(--line);
   padding: 14px 14px 10px;
   transition: padding 220ms ease, background 220ms ease;
 }
-
 
 .brand__title{
   font-weight: 800;
   font-size: 18px;
   letter-spacing: .2px;
   transition: font-size 220ms ease;
+  color: var(--text);
 }
 .brand__sub{
   font-size: 12px;
@@ -129,7 +125,6 @@ body{
   padding: 10px 14px 8px;
   background: rgba(243,244,246,.96);
 }
-
 .topbar.is-compact .brand__title{ font-size: 16px; }
 .topbar.is-compact .brand__sub{
   opacity: 0;
@@ -138,6 +133,7 @@ body{
   overflow: hidden;
 }
 
+/* Tabs */
 .tabs{
   display:flex;
   gap:10px;
@@ -146,9 +142,9 @@ body{
   -webkit-overflow-scrolling: touch;
 }
 .tabs a{
-  color: #1f2937;
+  color: var(--text);
   text-decoration: none;
-  border: 1px solid #e7e7ea;
+  border: 1px solid var(--line);
   background: #ffffff;
   padding: 8px 10px;
   border-radius: 999px;
@@ -156,8 +152,7 @@ body{
   white-space: nowrap;
 }
 
-
-/* LAYOUT */
+/* Layout */
 .wrap{
   max-width: 720px;
   margin: 0 auto;
@@ -169,6 +164,7 @@ body{
   margin: 0 0 10px;
   font-size: 18px;
   letter-spacing: .2px;
+  color: var(--text);
 }
 
 /* MENU ITEM (kart) */
@@ -182,11 +178,9 @@ body{
   color: var(--text);
   margin-bottom: 10px;
   background: var(--card);
-
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  border: 1px solid #e7e7ea;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
 }
-
 
 .item__img{
   width:72px;
@@ -194,18 +188,12 @@ body{
   border-radius: 12px;
   object-fit: cover;
   flex: 0 0 72px;
-  background:#0f0f12;
-  border: 1px solid #1f1f25;
+  background:#ffffff;              /* ✅ koyu kutu kalktı */
+  border: 1px solid var(--line);   /* ✅ light border */
 }
 
-.item__body{
-  min-width: 0;
-  flex: 1;
-}
-.item__name{
-  font-weight: 750;
-  font-size: 15px;
-}
+.item__body{ min-width: 0; flex: 1; }
+.item__name{ font-weight: 750; font-size: 15px; color: var(--text); }
 .item__desc{
   margin-top: 4px;
   font-size: 13px;
@@ -218,6 +206,7 @@ body{
   font-size: 14px;
   padding-left: 8px;
   white-space: nowrap;
+  color: var(--text);
 }
 
 .footer{
@@ -228,25 +217,22 @@ body{
   text-align:center;
 }
 
-/* ✅ CUSTOM LIGHTBOX (div + is-open) */
+/* ✅ CUSTOM LIGHTBOX (şimdilik dark kalsın, sonra istersek light yaparız) */
 .lightbox{
   position: fixed;
   inset: 0;
   z-index: 9999;
-
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
 
-  /* kapalıyken */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 
   transition: opacity 0.20s ease, visibility 0s linear 0.20s;
 }
-
 .lightbox.is-open{
   opacity: 1;
   visibility: visible;
@@ -261,41 +247,34 @@ body{
   opacity: 0;
   transition: opacity 0.20s ease;
 }
-.lightbox.is-open .lightbox__backdrop{
-  opacity: 1;
-}
+.lightbox.is-open .lightbox__backdrop{ opacity: 1; }
 
 .lightbox__panel{
   position: relative;
   width: min(92vw, 860px);
   background: transparent;
   z-index: 2;
-
   transform-origin: 50% 30%;
   transform: translateY(10px) scale(0.98);
   transition: transform 0.22s ease;
   will-change: transform;
 }
-.lightbox.is-open .lightbox__panel{
-  transform: translateY(0) scale(1);
-}
+.lightbox.is-open .lightbox__panel{ transform: translateY(0) scale(1); }
 
 .lightbox__content{
   background: #111114;
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid #2a2a2f;
 }
-
 .lightbox__img{
   display: block;
   width: 100%;
   height: auto;
   border-radius: 16px;
-  border: 1px solid var(--line);
+  border: 1px solid #2a2a2f;
   background: #0f0f12;
 }
-
 .lightbox__meta{
   padding: 16px;
   display:flex;
@@ -304,18 +283,8 @@ body{
   background: #111114;
   color: #ffffff;
 }
-
-.lightbox__title{
-  font-weight: 800;
-  font-size: 16px;
-  color: #ffffff;
-}
-
-.lightbox__price{
-  font-weight: 900;
-  font-size: 16px;
-  color: var(--gold);
-}
+.lightbox__title{ font-weight: 800; font-size: 16px; color: #ffffff; }
+.lightbox__price{ font-weight: 900; font-size: 16px; color: var(--gold); }
 
 .lightbox__close{
   position: absolute;
@@ -349,62 +318,4 @@ body{
     transition: none !important;
     transform: none !important;
   }
-}
-
-
-
-
-/* =========================
-   LIGHT THEME OVERRIDE (en alta)
-   ========================= */
-:root{
-  --bg:#f3f4f6;
-  --card:#ffffff;
-  --text:#111827;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-  --gold:#c58b1e;
-}
-
-/* genel zemin */
-body{
-  background: var(--bg) !important;
-  color: var(--text) !important;
-}
-
-/* hero altındaki üst bar */
-.topbar{
-  background: rgba(243,244,246,.92) !important;
-  border-bottom: 1px solid var(--line) !important;
-}
-.topbar.is-compact{
-  background: rgba(243,244,246,.96) !important;
-}
-.brand__title{ color: var(--text) !important; }
-.brand__sub{ color: var(--muted) !important; }
-
-/* kategori pill butonlar */
-.tabs a{
-  background: #ffffff !important;
-  border: 1px solid var(--line) !important;
-  color: var(--text) !important;
-}
-
-/* section yazıları */
-.section h2{ color: var(--text) !important; }
-
-/* kartlar */
-.item{
-  background: var(--card) !important;
-  border: 1px solid var(--line) !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,.05) !important;
-}
-.item__desc{ color: var(--muted) !important; }
-.item__img{ border-color: var(--line) !important; }
-.item__price{ color: var(--text) !important; }
-
-/* footer */
-.footer{
-  border-top: 1px solid var(--line) !important;
-  color: var(--muted) !important;
 }
