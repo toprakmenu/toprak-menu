@@ -332,5 +332,25 @@ body{
     transform: none !important;
   }
 }
+/* Başlangıçta normal */
+.topbar{
+  position: relative;
+  z-index: 10;
+}
+
+/* Scroll sonrası yukarı sabitlenecek hali */
+.topbar.is-sticky{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(243,244,246,.96);
+}
+
+/* Fixed olunca içerik zıplamasın */
+body.topbar-fixed{
+  padding-top: 96px;
+}
 
 
