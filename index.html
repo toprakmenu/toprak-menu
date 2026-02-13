@@ -213,7 +213,7 @@
         <div class="item__price">150 TL</div>
       </a>
 
-      <a class="item" href="javascript:void(0)"><img class="item__img" src="images/placeholder.png" alt="Pırasalı Danish" />
+      <a class="item" href="java:void(0)"><img class="item__img" src="images/placeholder.png" alt="Pırasalı Danish" />
         <div class="item__body"><div class="item__name">Pırasalı Danish</div><div class="item__desc"></div></div>
         <div class="item__price">200 TL</div>
       </a>
@@ -553,6 +553,54 @@
         if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
       });
     });
+// ✅ Scroll-spy: hangi section ekrandaysa o sekme aktif olsun
+document.addEventListener('DOMContentLoaded', () => {
+  const links = Array.from(document.querySelectorAll('.tabs a[href^="#"]'));
+  if (!links.length) return;
+
+  const sections = links
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const setActive = (id) => {
+    links.forEach(a => {
+      const match = a.getAttribute('href') === `#${id}`;
+      a.classList.toggle('is-active', match);
+      a.setAttribute('aria-current', match ? 'true' : 'false');
+    });
+  };
+
+  // İlk açılış: hash varsa onu seç
+  const initial = location.hash?.slice(1);
+  if (initial) setActive(initial);
+
+  // IntersectionObserver ile aktif section tespiti
+  const io = new IntersectionObserver((entries) => {
+    // Görünenleri al, en çok görüneni seç
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a, b) => (b.intersectionRatio || 0) - (a.intersectionRatio || 0));
+
+    if (visible[0]?.target?.id) setActive(visible[0].target.id);
+  }, {
+    // Topbar yüksekliğini hesaba kat: üstten biraz aşağıyı “başlangıç” say
+    root: null,
+    rootMargin: `-${parseInt(getComputedStyle(document.documentElement).getPropertyValue('--topbar-h') || '0', 10) + 16}px 0px -60% 0px`,
+    threshold: [0.15, 0.25, 0.35, 0.5, 0.65]
+  });
+
+  sections.forEach(sec => io.observe(sec));
+
+  // Sekmeye tıklanınca da aktif yansısın
+  links.forEach(a => {
+    a.addEventListener('click', () => {
+      const id = a.getAttribute('href').slice(1);
+      setActive(id);
+    });
+  });
+});
+
+    
   </script>
 
 </body>
