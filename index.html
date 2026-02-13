@@ -438,98 +438,98 @@
     </div>
   </div>
 
-  <script>
-    // Topbar compact
-    document.addEventListener('DOMContentLoaded', () => {
-    const hero = document.getElementById('hero');
+ <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const hero = document.querySelector('.hero');
   const topbar = document.querySelector('.topbar');
   if (!topbar) return;
 
-  const stickyPoint = () => (hero ? hero.offsetHeight - 80 : 200);
+  // Topbar yüksekliğini body padding için değişkene yaz
+  const setTopbarH = () => {
+    document.documentElement.style.setProperty('--topbar-h', topbar.offsetHeight + 'px');
+  };
+  setTopbarH();
+  window.addEventListener('resize', setTopbarH);
 
+  // ✅ HERO altına kadar normal dursun, hero bitince fixed olsun
   const onScroll = () => {
-    if (window.scrollY > stickyPoint()) {
+    const heroH = hero ? hero.offsetHeight : 0;
+    const y = window.scrollY || document.documentElement.scrollTop;
+
+    if (y >= heroH) {
       topbar.classList.add('is-sticky');
-      document.body.classList.add('topbar-fixed');
+      document.body.classList.add('has-sticky');
     } else {
       topbar.classList.remove('is-sticky');
-      document.body.classList.remove('topbar-fixed');
+      document.body.classList.remove('has-sticky');
     }
+
+    // compact
+    if (y > 40) topbar.classList.add('is-compact');
+    else topbar.classList.remove('is-compact');
   };
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
   onScroll();
+
+  // ✅ Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightboxImg');
+  const lbTitle = document.getElementById('lightboxTitle');
+  const lbPrice = document.getElementById('lightboxPrice');
+  const btnClose = lb?.querySelector('.lightbox__close');
+
+  const openLB = (src, alt, title, price) => {
+    if (!lb || !lbImg || !lbTitle || !lbPrice) return;
+    lbImg.src = src;
+    lbImg.alt = alt || 'Ürün fotoğrafı';
+    lbTitle.textContent = title || '';
+    lbPrice.textContent = price || '';
+    lb.classList.add('is-open');
+    lb.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLB = () => {
+    if (!lb || !lbImg) return;
+    lb.classList.remove('is-open');
+    lb.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  };
+
+  // ✅ ÖNEMLİ: a.item değil, .item yakala (popup “açılmıyor” sorununun en sık sebebi bu)
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.item');
+    if (!item) return;
+
+    // Eğer link ise sayfa zıplamasını engelle
+    if (item.tagName === 'A') e.preventDefault();
+
+    const img = item.querySelector('img.item__img');
+    if (!img) return;
+
+    const title = item.querySelector('.item__name')?.textContent || '';
+    const price = item.querySelector('.item__price')?.textContent || '';
+
+    openLB(img.src, img.alt, title, price);
+  });
+
+  btnClose?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeLB();
+  });
+
+  lb?.addEventListener('click', (e) => {
+    if (e.target?.dataset?.close === "1") closeLB();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lb?.classList.contains('is-open')) closeLB();
+  });
 });
-      const topbar = document.querySelector('.topbar');
-      if (!topbar) return;
+</script>
 
-      const onScroll = () => {
-        if (window.scrollY > 40) topbar.classList.add('is-compact');
-        else topbar.classList.remove('is-compact');
-      };
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    });
-
-    // ✅ Custom Lightbox (mobil + PC garanti)
-    document.addEventListener('DOMContentLoaded', () => {
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lightboxImg');
-      const lbTitle = document.getElementById('lightboxTitle');
-      const lbPrice = document.getElementById('lightboxPrice');
-      const btnClose = lb?.querySelector('.lightbox__close');
-
-      if (!lb || !lbImg || !lbTitle || !lbPrice || !btnClose) return;
-
-      const open = (src, alt, title, price) => {
-        lbImg.src = src;
-        lbImg.alt = alt || 'Ürün fotoğrafı';
-        lbTitle.textContent = title || '';
-        lbPrice.textContent = price || '';
-
-        lb.classList.add('is-open');
-        lb.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      };
-
-      const close = () => {
-        lb.classList.remove('is-open');
-        lb.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        lbImg.src = '';
-      };
-
-      document.addEventListener('click', (e) => {
-        const item = e.target.closest('a.item');
-        if (!item) return;
-
-        e.preventDefault();
-
-        const img = item.querySelector('img.item__img');
-        if (!img) return;
-
-        const title = item.querySelector('.item__name')?.textContent || '';
-        const price = item.querySelector('.item__price')?.textContent || '';
-        open(img.src, img.alt, title, price);
-      }, { passive: false });
-
-      btnClose.addEventListener('click', (e) => {
-        e.preventDefault();
-        close();
-      });
-
-      lb.addEventListener('click', (e) => {
-        const shouldClose = e.target?.dataset?.close === "1";
-        if (shouldClose) close();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lb.classList.contains('is-open')) close();
-      });
-    });
-  </script>
 
 </body>
 </html>
