@@ -104,12 +104,13 @@ body{
   position: sticky;
   top: 0;
   z-index: 10;
-background: #f3f4f6;
+  background: rgba(243,244,246,.92);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #e7e7ea;
   padding: 14px 14px 10px;
   transition: padding 220ms ease, background 220ms ease;
 }
+
 
 .brand__title{
   font-weight: 800;
@@ -126,8 +127,9 @@ background: #f3f4f6;
 
 .topbar.is-compact{
   padding: 10px 14px 8px;
-  background: rgba(11,11,12,.96);
+  background: rgba(243,244,246,.96);
 }
+
 .topbar.is-compact .brand__title{ font-size: 16px; }
 .topbar.is-compact .brand__sub{
   opacity: 0;
@@ -144,15 +146,16 @@ background: #f3f4f6;
   -webkit-overflow-scrolling: touch;
 }
 .tabs a{
-  color: var(--text);
+  color: #1f2937;
   text-decoration: none;
-  border: 1px solid var(--line);
-  background: #111114;
+  border: 1px solid #e7e7ea;
+  background: #ffffff;
   padding: 8px 10px;
   border-radius: 999px;
   font-size: 13px;
   white-space: nowrap;
 }
+
 
 /* LAYOUT */
 .wrap{
