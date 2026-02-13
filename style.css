@@ -302,3 +302,18 @@ body{
     transform: none !important;
   }
 }
+
+/* ✅ HERO biter bitmez topbar’ı sabitle (garanti yöntem) */
+.topbar.is-sticky{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+}
+
+/* ✅ fixed olunca içerik yukarı kaymasın diye boşluk */
+body.has-sticky{
+  padding-top: var(--topbar-h, 0px);
+}
+
