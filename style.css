@@ -443,7 +443,7 @@ body.has-fixed-topbar{
 #tartine .section-subtitle{ margin-top: 0; margin-bottom: 12px; }
 
 .section-subtitle{
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   line-height: 1.2;
   opacity: 0.9;
